@@ -1,21 +1,18 @@
 //
 //  Toast.h
-//  ZNG-Client
+//  EffectiveObjcDemo
 //
-//  Created by Yadong Wang on 16/5/11.
-//  Copyright © 2016年 monkey. All rights reserved.
+//  Created by monkey on 2018/6/27.
+//  Copyright © 2018年 monkey. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface Toast : UIView
-/*!
- @brief 初始化
- */
-+(Toast *)makeText:(NSString *)text;
+@interface Toast : NSObject
 
-/*!
- @brief 显示出来
+/**
+ 两数相加
  */
--(void)show;
+-(NSUInteger)addWithA:(NSUInteger)a B:(NSUInteger) b;
+
 @end
