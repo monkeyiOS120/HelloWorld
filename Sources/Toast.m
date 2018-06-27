@@ -36,11 +36,11 @@
         toast.titleLabel=[[UILabel alloc]init];
         toast.titleLabel.textColor=[UIColor whiteColor];
         toast.titleLabel.textAlignment=NSTextAlignmentCenter;
-        toast.titleLabel.font = [UIFont systemFontOfSize:14*SCALE_WIDTH];
+        toast.titleLabel.font = [UIFont systemFontOfSize:14];
         toast.titleLabel.layer.masksToBounds=YES;
         toast.titleLabel.numberOfLines=0;
-        toast.titleLabel.layer.cornerRadius=(15*SCALE_WIDTH);
-        toast.titleLabel.backgroundColor=[rkkOrangeColor colorWithAlphaComponent:0.95f];
+        toast.titleLabel.layer.cornerRadius=(15);
+        toast.titleLabel.backgroundColor=[UIColor greenColor];
 //        [[NSNotificationCenter defaultCenter] addObserver:toast selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:toast selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         toast.keyBoardHeight=0;
@@ -50,8 +50,7 @@
     {
         return toast;
     }
-    CGSize size=[text boundingRectWithSize:CGSizeMake(250*SCALE_WIDTH, 100*SCALE_WIDTH) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14*SCALE_WIDTH]} context:nil].size;
-    toast.titleLabel.frame=CGRectMake((SCREENWIDTH-size.width-54*SCALE_WIDTH)/2, -112*SCALE_WIDTH, size.width+54*SCALE_WIDTH, size.height+14*SCALE_WIDTH);
+    toast.titleLabel.frame=CGRectMake(100, -112, 100, 40);
     toast.titleLabel.text=text;
     
     return toast;
@@ -74,13 +73,13 @@
 
 -(void)keyboardWillHide:(NSNotification *)notification
 {
-    DLog(@"*-----HideKeyBoard");
+    NSLog(@"*-----HideKeyBoard");
     self.keyBoardHeight=0.0f;
 }
 
 -(void)keyboardWillShow:(NSNotification *)notification
 {
-    DLog(@"*-----ShowKeyBoard");
+    NSLog(@"*-----ShowKeyBoard");
     CGSize size=[[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue].size;
     self.keyBoardHeight=size.height;
 }
@@ -88,7 +87,6 @@
 -(void)show
 {
 //    return;
-    NSLog(@"%f",SCALE_WIDTH);
     if(!self.titleLabel.text || [self.titleLabel.text isEqualToString:@""])//如果返回为空不显示
     {
         return;
@@ -111,7 +109,7 @@
         CASpringAnimation *springAnimation;
         springAnimation = [CASpringAnimation animationWithKeyPath:@"position.y"];
         springAnimation.fromValue = @(-112);
-        springAnimation.toValue = @(30+self.titleLabel.viewFrameHeight/2);
+        springAnimation.toValue = @(30+self.titleLabel.frame.size.height/2);
         //质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
         springAnimation.mass = 10.0;
         //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
@@ -132,14 +130,14 @@
         animation = [CABasicAnimation animationWithKeyPath:@"position.y"];
         animation.duration = 0.5;
         animation.fromValue = @(-112);
-        animation.toValue = @(30+self.titleLabel.viewFrameHeight/2);
+        animation.toValue = @(30+self.titleLabel.frame.size.height/2);
         animation.removedOnCompletion=NO;
         animation.fillMode = kCAFillModeBoth;
     }
     
     CABasicAnimation *animation2 = [CABasicAnimation animationWithKeyPath:@"position.y"];
     animation2.duration = 0.7;
-    animation2.fromValue = @(30+self.titleLabel.viewFrameHeight/2);
+    animation2.fromValue = @(30+self.titleLabel.frame.size.height/2);
     animation2.toValue = @(-112);
     animation2.beginTime = 1.3;
     
